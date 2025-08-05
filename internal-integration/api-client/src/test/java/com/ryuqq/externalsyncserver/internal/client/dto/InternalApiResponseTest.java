@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,10 +25,10 @@ class InternalApiResponseTest {
     @DisplayName("성공 응답 생성 테스트")
     void testSuccessResponse() {
         // Given
-        LocalDateTime now = LocalDateTime.now();
+        Instant now = Instant.now();
         InternalApiResponse response = new InternalApiResponse(
             "REQ-001",
-            "SUCCESS",
+            ApiStatus.SUCCESS,
             "Request processed successfully",
             "result data",
             now
@@ -36,7 +36,7 @@ class InternalApiResponseTest {
         
         // Then
         assertThat(response.requestId()).isEqualTo("REQ-001");
-        assertThat(response.status()).isEqualTo("SUCCESS");
+        assertThat(response.status()).isEqualTo(ApiStatus.SUCCESS);
         assertThat(response.message()).isEqualTo("Request processed successfully");
         assertThat(response.data()).isEqualTo("result data");
         assertThat(response.timestamp()).isEqualTo(now);
@@ -46,10 +46,10 @@ class InternalApiResponseTest {
     @DisplayName("에러 응답 생성 테스트")
     void testErrorResponse() {
         // Given
-        LocalDateTime now = LocalDateTime.now();
+        Instant now = Instant.now();
         InternalApiResponse response = new InternalApiResponse(
             "REQ-002",
-            "ERROR",
+            ApiStatus.ERROR,
             "Processing failed",
             null,
             now
@@ -57,7 +57,7 @@ class InternalApiResponseTest {
         
         // Then
         assertThat(response.requestId()).isEqualTo("REQ-002");
-        assertThat(response.status()).isEqualTo("ERROR");
+        assertThat(response.status()).isEqualTo(ApiStatus.ERROR);
         assertThat(response.message()).isEqualTo("Processing failed");
         assertThat(response.data()).isNull();
         assertThat(response.timestamp()).isEqualTo(now);
@@ -67,10 +67,10 @@ class InternalApiResponseTest {
     @DisplayName("JSON 직렬화/역직렬화 테스트")
     void testJsonSerialization() throws Exception {
         // Given
-        LocalDateTime now = LocalDateTime.now();
+        Instant now = Instant.now();
         InternalApiResponse original = new InternalApiResponse(
             "REQ-001",
-            "SUCCESS",
+            ApiStatus.SUCCESS,
             "Request processed successfully",
             "result data",
             now

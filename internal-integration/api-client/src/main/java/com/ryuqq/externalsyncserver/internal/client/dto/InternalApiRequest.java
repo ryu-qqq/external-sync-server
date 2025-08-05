@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public record InternalApiRequest(
     @JsonProperty("requestId")
@@ -20,5 +20,5 @@ public record InternalApiRequest(
     Object payload,
     
     @JsonProperty("timestamp")
-    LocalDateTime timestamp
+    Instant timestamp
 ) {}

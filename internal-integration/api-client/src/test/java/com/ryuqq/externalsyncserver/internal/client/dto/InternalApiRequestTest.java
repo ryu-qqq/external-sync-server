@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,7 +38,7 @@ class InternalApiRequestTest {
             "REQ-001",
             "SYNC_PRODUCT",
             "test payload",
-            LocalDateTime.now()
+            Instant.now()
         );
         
         // When
@@ -60,7 +60,7 @@ class InternalApiRequestTest {
             null,
             "SYNC_PRODUCT",
             "test payload",
-            LocalDateTime.now()
+            Instant.now()
         );
         
         // When
@@ -80,7 +80,7 @@ class InternalApiRequestTest {
             "",
             "SYNC_PRODUCT",
             "test payload",
-            LocalDateTime.now()
+            Instant.now()
         );
         
         // When
@@ -100,7 +100,7 @@ class InternalApiRequestTest {
             "REQ-001",
             null,
             "test payload",
-            LocalDateTime.now()
+            Instant.now()
         );
         
         // When
@@ -120,7 +120,7 @@ class InternalApiRequestTest {
             "REQ-001",
             "SYNC_PRODUCT",
             null,
-            LocalDateTime.now()
+            Instant.now()
         );
         
         // When
@@ -136,7 +136,7 @@ class InternalApiRequestTest {
     @DisplayName("JSON 직렬화/역직렬화 테스트")
     void testJsonSerialization() throws Exception {
         // Given
-        LocalDateTime now = LocalDateTime.now();
+        Instant now = Instant.now();
         InternalApiRequest original = new InternalApiRequest(
             "REQ-001",
             "SYNC_PRODUCT",

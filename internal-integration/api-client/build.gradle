@@ -26,19 +26,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     
     // Circuit breaker and retry
-    implementation 'io.github.resilience4j:resilience4j-spring-boot2:2.1.0'
+    implementation 'io.github.resilience4j:resilience4j-spring-boot3:2.1.0'
     implementation 'io.github.resilience4j:resilience4j-reactor:2.1.0'
     
-    // JSON processing
-    implementation 'com.fasterxml.jackson.core:jackson-databind'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    
-    // Logging
-    implementation 'org.slf4j:slf4j-api'
+    // JSON processing (jackson-databind and jackson-datatype-jsr310 are included in spring-boot-starter-webflux)
+    // Logging (slf4j-api is included in spring-boot-starter)
     
     // Test dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.12.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

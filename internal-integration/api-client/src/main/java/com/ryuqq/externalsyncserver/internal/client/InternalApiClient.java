@@ -1,5 +1,7 @@
 package com.ryuqq.externalsyncserver.internal.client;
 
+import com.ryuqq.externalsyncserver.internal.client.dto.ApiStatus;
+import com.ryuqq.externalsyncserver.internal.client.dto.HealthCheckResponse;
 import com.ryuqq.externalsyncserver.internal.client.dto.InternalApiRequest;
 import com.ryuqq.externalsyncserver.internal.client.dto.InternalApiResponse;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -37,7 +39,7 @@ public class InternalApiClient {
         
         return webClient
                 .post()
-                .uri("/api/internal/process")
+                .uri(ApiConstants.PROCESS_ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(request)
                 .retrieve()
@@ -55,11 +57,11 @@ public class InternalApiClient {
         
         return webClient
                 .get()
-                .uri("/actuator/health")
+                .uri(ApiConstants.HEALTH_CHECK_ENDPOINT)
                 .retrieve()
-                .bodyToMono(String.class)
+                .bodyToMono(HealthCheckResponse.class)
                 .timeout(Duration.ofSeconds(10))
-                .map(response -> response.contains("UP"))
+                .map(HealthCheckResponse::isHealthy)
                 .doOnSuccess(isHealthy -> logger.debug("Health check result: {}", isHealthy))
                 .doOnError(error -> logger.warn("Health check failed: {}", error.getMessage()));
     }
@@ -70,7 +72,7 @@ public class InternalApiClient {
         
         return Mono.just(new InternalApiResponse(
             request.requestId(),
-            "ERROR",
+            ApiStatus.ERROR,
             "Service temporarily unavailable: " + ex.getMessage(),
             null,
             request.timestamp()

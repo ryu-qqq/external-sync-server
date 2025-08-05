@@ -2,14 +2,14 @@ package com.ryuqq.externalsyncserver.internal.client.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public record InternalApiResponse(
     @JsonProperty("requestId")
     String requestId,
     
     @JsonProperty("status")
-    String status,
+    ApiStatus status,
     
     @JsonProperty("message")
     String message,
@@ -18,5 +18,5 @@ public record InternalApiResponse(
     Object data,
     
     @JsonProperty("timestamp")
-    LocalDateTime timestamp
+    Instant timestamp
 ) {}
