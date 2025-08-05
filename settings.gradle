@@ -1,1 +1,20 @@
 rootProject.name = 'external-sync-server'
+
+// Core modules
+include 'core:common'
+include 'core:domain'
+include 'core:infrastructure'
+
+// Message modules
+include 'message:sqs-consumer'
+include 'message:message-processor'
+
+// Internal integration modules
+include 'internal-integration:api-client'
+
+// Monitoring modules
+include 'monitoring:health-check'
+include 'monitoring:metrics'
+
+// Application module
+include 'application:external-sync-app'
